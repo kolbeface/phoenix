@@ -1,0 +1,45 @@
+service:
+  type: ClusterIP
+
+postgresql:
+  settings:
+    existingSecret: phoenix-db
+    superuserPassword:
+      value: null
+  userDatabase:
+    existingSecret: phoenix-db
+    name:
+      value: null
+    user:
+      value: null
+    password:
+      value: null
+
+database:
+  postgres:
+    user: phoenix
+    password: null
+
+auth:
+  secret:
+    - key: PHOENIX_SECRET
+      value: ""
+    - key: PHOENIX_ADMIN_SECRET
+      value: ""
+    - key: PHOENIX_POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: phoenix-db
+          key: USERDB_PASSWORD
+    - key: PHOENIX_SMTP_PASSWORD
+      value: ""
+    - key: PHOENIX_DEFAULT_ADMIN_INITIAL_PASSWORD
+      value: ""
+
+ingress:
+  enabled: true
+  className: traefik
+  host: phoenix.localhost
+
+server:
+  rootUrl: http://phoenix.localhost:8080
