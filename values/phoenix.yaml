@@ -1,3 +1,6 @@
+service:
+  type: ClusterIP
+
 postgresql:
   settings:
     existingSecret: phoenix-db
@@ -32,3 +35,11 @@ auth:
       value: ""
     - key: PHOENIX_DEFAULT_ADMIN_INITIAL_PASSWORD
       value: ""
+
+ingress:
+  enabled: true
+  className: traefik
+  host: phoenix.localhost
+
+server:
+  rootUrl: http://phoenix.localhost:8080
