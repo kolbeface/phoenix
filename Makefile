@@ -34,6 +34,7 @@ traefik:                             ## install or upgrade the Traefik ingress c
 
 status:
 	kubectl get pods,svc,pvc,ingress -n $(NAMESPACE)
+	kubectl get pods,svc -n traefik
 
 down:                                ## destroys everything, including data
 	kind delete cluster --name $(CLUSTER)
