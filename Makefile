@@ -9,8 +9,9 @@ CERT_MANAGER_VER := v1.21.3
 
 up: requirements cluster secrets traefik cert-manager certs phoenix  ## build everything
 
-requirements:						   ## install requirements.txt
-	@python3.13 -m venv venv && source venv/bin/activate && python3 -m pip install -r requirements.txt
+requirements:                        ## create venv and install requirements.txt (no activate: each recipe line is its own shell)
+	python3.13 -m venv venv
+	venv/bin/python -m pip install -r requirements.txt
 
 cluster:                             ## create the kind cluster if it doesn't exist
 	@kind get clusters | grep -qx $(CLUSTER) || kind create cluster --config kind-config.yaml
