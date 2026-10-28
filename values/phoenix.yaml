@@ -17,7 +17,7 @@ postgresql:
 
 database:
   postgres:
-    user: phoenix
+    user: user1
     password: null
 
 auth:
