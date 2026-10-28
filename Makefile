@@ -44,7 +44,7 @@ certs:                               ## private CA + Phoenix leaf cert; exports 
 	kubectl apply -f certs/ca.yaml
 	kubectl wait --for=condition=Ready certificate/root-ca -n cert-manager --timeout=60s
 	kubectl wait --for=condition=Ready certificate/phoenix-tls -n $(NAMESPACE) --timeout=60s
-	kubectl get secret root-ca -n cert-manager -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
+	kubectl get secret root-ca -n cert-manager -o jsonpath='{.data.ca\.crt}' | base64 -d > certs/ca.crt
 
 # TODO: collector, netpol, test
 
