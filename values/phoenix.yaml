@@ -17,10 +17,11 @@ postgresql:
 
 database:
   postgres:
-    user: user1
+    user: phoenix
     password: null
 
 auth:
+  useSecureCookies: true
   secret:
     - key: PHOENIX_SECRET
       value: ""
@@ -40,6 +41,15 @@ ingress:
   enabled: true
   className: traefik
   host: phoenix.localhost
+  annotations:
+    # HTTPS only: route on Traefik's websecure entrypoint (host 8443), not plain-HTTP web (8080)
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  tls:
+    enabled: true
+    certSource: secret
+    secret:
+      secretName: phoenix-tls
 
 server:
-  rootUrl: http://phoenix.localhost:8080
+  rootUrl: https://phoenix.localhost:8443
